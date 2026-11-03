@@ -3,60 +3,201 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Soru Merkezi</title>
-<meta name="description" content="9-12. sınıf öğrencileri için ÖSYM odaklı soru bankası ve deneme uygulaması.">
-<link rel="stylesheet" href="stil.css">
+<title>Soru Merkezi | 9–12. sınıf soru bankası ve denemeler</title>
+<meta name="description" content="9–12. sınıf müfredatına uygun soru bankaları, ÖSYM formatında süreli denemeler ve çözümler. Soru Merkezi’ni tarayıcıdan hemen dene.">
+<meta property="og:title" content="Soru Merkezi">
+<meta property="og:description" content="9–12. sınıf soru bankaları ve ÖSYM formatında denemeler. Tarayıcıdan hemen dene.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23e8a93a'/%3E%3Ctext x='32' y='43' font-size='28' font-weight='700' text-anchor='middle' font-family='Arial' fill='%230b2545'%3ESM%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --navy:#0b2545; --navy2:#0f3457; --amber:#e8a93a; --amber-ink:#3a2a05;
+  --bg:#f3f6fa; --surface:#ffffff; --text:#0b2545; --muted:#4a5f78; --line:#d3dce8;
+  --ok:#1f8a4c; --bad:#c0392b;
+  --font:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#07182e; --surface:#0f3457; --text:#eaf1f8; --muted:#a9c3dc; --line:#23486e; --ok:#4cc27f; --bad:#ff8a7a;}
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;font-size:17px}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+
+.notice{background:var(--amber);color:var(--amber-ink);font-size:15px;font-weight:600;text-align:center;padding:10px 16px}
+
+.hero{background:var(--navy);color:#fff;
+  background-image:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);
+  background-size:28px 28px}
+.hero .wrap{display:grid;gap:44px;padding-top:44px;padding-bottom:72px}
+@media (min-width:880px){.hero .wrap{grid-template-columns:1fr 1fr;align-items:center;padding-top:60px;padding-bottom:96px}}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:38px;font-weight:800;font-size:19px}
+.logo{width:42px;height:42px;border-radius:11px;background:var(--amber);color:var(--navy);display:grid;place-items:center;font-weight:800;font-size:18px}
+h1{font-size:clamp(38px,6.2vw,66px);line-height:1.04;letter-spacing:-.025em;margin:0 0 16px;font-weight:900}
+.tag{font-size:16px;color:#c4d6e8;margin:0 0 32px}
+.art{border-radius:22px;overflow:hidden;border:3px solid var(--amber);box-shadow:10px 10px 0 var(--amber);margin:0 10px 10px 0}
+.art svg{display:block;width:100%;height:auto}
+.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn{display:inline-block;background:var(--amber);color:var(--amber-ink);font-weight:800;text-decoration:none;padding:14px 24px;border-radius:12px}
+.btn:hover{filter:brightness(1.07)}
+.play{display:inline-flex;align-items:center;gap:10px;border:1.5px dashed #6c8aa8;color:#c4d6e8;padding:12px 18px;border-radius:12px;font-weight:600;font-size:15px}
+
+.q{max-width:520px;background:var(--surface);color:var(--text);border-radius:16px;padding:22px;border:1px solid var(--line)}
+.q small{color:var(--muted);font-weight:600}
+.q p{margin:8px 0 16px;font-size:19px;font-weight:700;line-height:1.4}
+.opts{display:grid;gap:9px}
+.opt{font:inherit;text-align:left;cursor:pointer;background:transparent;color:inherit;border:1.5px solid var(--line);border-radius:11px;padding:11px 14px;display:flex;gap:12px}
+.opt b{width:1.4em;color:var(--muted)}
+.opt:hover{border-color:var(--amber)}
+.opt.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,transparent)}
+.opt.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,transparent)}
+.fb{min-height:3.2em;margin:14px 0 0;font-size:15px;color:var(--muted)}
+.fb strong.ok{color:var(--ok)} .fb strong.bad{color:var(--bad)}
+
+section{padding:60px 0 8px}
+h2{font-size:clamp(25px,3.6vw,33px);line-height:1.2;letter-spacing:-.015em;margin:0 0 8px}
+.sub{color:var(--muted);margin:0 0 26px;max-width:38em}
+dl{margin:0;border-bottom:1px solid var(--line)}
+.row{display:grid;gap:4px 28px;padding:18px 0;border-top:1px solid var(--line)}
+@media (min-width:720px){.row{grid-template-columns:15em 1fr}}
+dt{font-weight:800}
+dd{margin:0;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 22px;padding:0;list-style:none}
+.chips li{border:1.5px solid var(--line);border-radius:999px;padding:6px 15px;font-weight:600;font-size:15px;background:var(--surface)}
+.label{font-weight:800;margin:0 0 10px}
+.premium{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--amber);border-radius:12px;padding:22px 24px}
+.premium p{margin:0 0 10px;color:var(--muted)} .premium p:last-child{margin:0}
+.premium strong{color:var(--text)}
+
+footer{margin-top:64px;background:var(--navy);color:#c4d6e8;padding:34px 0;font-size:15px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:14px 26px;justify-content:space-between;align-items:center}
+footer nav{display:flex;flex-wrap:wrap;gap:8px 22px}
+footer a{color:#fff}
+</style>
 </head>
 <body>
 
-<header>
-  <div class="ic">
-    <h1>Soru Merkezi</h1>
-    <p>9-12. sınıf öğrencileri için soru bankası ve ÖSYM denemeleri</p>
+<div class="notice">Mobil uygulama yakında Google Play’de. Web sürümünü şimdi tarayıcında deneyebilirsin.</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="brand"><span class="logo">SM</span>Soru Merkezi</div>
+      <h1>Lise öğrencileri için sınırsız soru bankası</h1>
+      <p class="tag">Türkiye’de birçok öğrenciyle yarışma fırsatı</p>
+      <div class="actions">
+        <a class="btn" href="uygulama/">Tarayıcıda dene</a>
+        <span class="play"><svg width="18" height="20" viewBox="0 0 18 20" aria-hidden="true"><path d="M2 1.5L16 10L2 18.5Z" fill="#e8a93a"/></svg>Google Play’de yakında</span>
+      </div>
+    </div>
+
+    <div class="art"><svg viewBox="0 0 480 400" role="img" aria-label="İki öğrenci evde kanepede telefonlarıyla soru çözerek yarışıyor, çevrelerinde rozetler var">
+<defs><g id="ph"><rect width="44" height="76" rx="7" fill="#0b2545"/><rect x="4" y="6" width="36" height="64" rx="4" fill="#eaf1f8"/><rect x="8" y="12" width="28" height="5" rx="2" fill="#0b2545"/><rect x="8" y="21" width="20" height="3" rx="1.5" fill="#a9c3dc"/><rect x="8" y="30" width="28" height="7" rx="3" fill="#a9c3dc"/><rect x="8" y="40" width="28" height="7" rx="3" fill="#4cc27f"/><rect x="8" y="50" width="28" height="7" rx="3" fill="#a9c3dc"/><rect x="8" y="61" width="18" height="4" rx="2" fill="#e8a93a"/></g></defs>
+<rect width="480" height="400" fill="#0f3457"/><rect y="300" width="480" height="100" fill="#0a2c4d"/>
+<rect x="34" y="40" width="96" height="110" rx="6" fill="#1b5588" stroke="#8fb5d9" stroke-width="4"/><path d="M82 40V150M34 95H130" stroke="#8fb5d9" stroke-width="3"/><circle cx="58" cy="66" r="8" fill="#ffe9a8"/>
+<rect x="56" y="232" width="368" height="80" rx="30" fill="#234f7e"/>
+<rect x="128" y="200" width="84" height="100" rx="30" fill="#e8a93a"/><rect x="161" y="186" width="18" height="18" fill="#f0c39a"/><circle cx="170" cy="165" r="30" fill="#f5cfa8"/>
+<path d="M138 168Q138 128 170 128Q202 128 202 168L206 214Q196 216 194 200L194 160Q170 150 146 160L146 200Q144 216 134 214Z" fill="#3b2418"/>
+<circle cx="160" cy="170" r="2.6" fill="#0b2545"/><circle cx="180" cy="170" r="2.6" fill="#0b2545"/><path d="M162 180Q170 187 178 180" stroke="#0b2545" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+<rect x="268" y="200" width="84" height="100" rx="30" fill="#5bb3e6"/><rect x="301" y="186" width="18" height="18" fill="#f0c39a"/><circle cx="310" cy="165" r="30" fill="#f5cfa8"/>
+<path d="M278 168Q278 128 310 128Q342 128 342 168L346 214Q336 216 334 200L334 160Q310 150 286 160L286 200Q284 216 274 214Z" fill="#8a3b1a"/>
+<circle cx="300" cy="170" r="2.6" fill="#0b2545"/><circle cx="320" cy="170" r="2.6" fill="#0b2545"/><path d="M302 180Q310 187 318 180" stroke="#0b2545" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+<rect x="30" y="290" width="420" height="120" rx="34" fill="#2a5f94"/>
+<path d="M134 228L146 268M206 228L194 268" stroke="#e8a93a" stroke-width="14" stroke-linecap="round"/><path d="M274 228L286 268M346 228L334 268" stroke="#5bb3e6" stroke-width="14" stroke-linecap="round"/>
+<use href="#ph" x="148" y="222"/><use href="#ph" x="288" y="222"/>
+<circle cx="146" cy="268" r="8" fill="#f5cfa8"/><circle cx="194" cy="268" r="8" fill="#f5cfa8"/><circle cx="286" cy="268" r="8" fill="#f5cfa8"/><circle cx="334" cy="268" r="8" fill="#f5cfa8"/>
+<rect x="130" y="88" width="80" height="26" rx="13" fill="#fff"/><text x="170" y="106" font-size="13" font-weight="700" text-anchor="middle" fill="#1f8a4c" font-family="Arial,sans-serif">8 doğru</text>
+<rect x="270" y="88" width="80" height="26" rx="13" fill="#fff"/><text x="310" y="106" font-size="13" font-weight="700" text-anchor="middle" fill="#1f8a4c" font-family="Arial,sans-serif">7 doğru</text>
+<circle cx="240" cy="118" r="26" fill="#e8a93a"/><text x="240" y="127" font-size="23" font-weight="900" text-anchor="middle" fill="#0b2545" font-family="Arial,sans-serif">VS</text>
+<g transform="translate(240 46)"><path d="M-12-22L0 2L12-22Z" fill="#c0392b"/><circle r="22" fill="#f6c445" stroke="#c98e1a" stroke-width="3"/><polygon points="0,-12 3.5,-4 12,-3.7 5.6,2 7.4,10.5 0,5.8 -7.4,10.5 -5.6,2 -12,-3.7 -3.5,-4" fill="#fff"/></g>
+<g transform="translate(404 70)"><circle r="20" fill="#e8742a" stroke="#fff" stroke-width="3"/><path d="M0-12C6-5 8-1 8 4A8 8 0 0 1-8 4C-8 0-5-3-3-6C-2-3 0-3 0-12Z" fill="#fff"/></g>
+<g transform="translate(66 206)"><circle r="19" fill="#1f8a4c" stroke="#fff" stroke-width="3"/><path d="M-7 0L-2 6L8-6" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+</svg></div>
   </div>
 </header>
 
-<main>
-  <div class="kart">
-    <h2>Uygulama hakkında</h2>
-    <p>
-      Soru Merkezi, lise müfredatındaki 11 dersi kapsayan bir soru bankası
-      uygulamasıdır. Her ünite 30 soruluk kitaplara ayrılmıştır; her sorunun
-      adım adım çözümü ve sık yapılan hata uyarısı bulunur. Matematik, geometri,
-      fizik ve kimyada soruların altında bir defter açılır: öğrenci şekli
-      parmağıyla çizer, ölçüleri klavyeden ekler.
-    </p>
-    <p>
-      Yanlış yapılan sorular sonraki kitaplarda tekrar karşınıza çıkar. ÖSYM
-      formatındaki denemeler süreli çalışır, net hesabı ve bölüm bazlı analiz sunar.
-    </p>
-    <p>
-      Sorular ÖSYM formatında hazırlanmış <strong>özgün içeriktir</strong>;
-      çıkmış sorular birebir kullanılmaz.
-    </p>
-  </div>
-
-  <div class="kart">
-    <h2>Yasal belgeler ve destek</h2>
-    <div class="baglantilar">
-      <a href="gizlilik.html">Gizlilik Politikası</a>
-      <a class="ikincil" href="kullanim-kosullari.html">Kullanım Koşulları</a>
-      <a class="ikincil" href="destek.html">Destek</a>
-      <a class="ikincil" href="hesap-silme.html">Hesap Silme</a>
+<main class="wrap">
+  <section>
+    <h2>Önce bir soru dene</h2>
+    <p class="sub">Uygulamadaki gibi: seçeneğe dokun, çözümü gör.</p>
+    <div class="q" aria-labelledby="qt">
+      <small id="qt">Örnek soru · 9. sınıf matematik</small>
+      <p>Aşağıdakilerden hangisi asal sayıdır?</p>
+      <div class="opts" id="opts">
+        <button class="opt" type="button" data-ok="0"><b>A</b>21</button>
+        <button class="opt" type="button" data-ok="0"><b>B</b>27</button>
+        <button class="opt" type="button" data-ok="1"><b>C</b>31</button>
+        <button class="opt" type="button" data-ok="0"><b>D</b>39</button>
+      </div>
+      <p class="fb" id="fb" aria-live="polite">Bir seçeneğe dokun.</p>
     </div>
-  </div>
+  </section>
 
-  <div class="kart">
-    <h2>İletişim</h2>
-    <p>
-      Soru, öneri ve hata bildirimleri için:
-      <strong>skaban522@gmail.com</strong>
-    </p>
-  </div>
+  <section>
+    <h2>Uygulamada neler var?</h2>
+    <p class="sub">Derse ve üniteye göre çalış, yanlışlarını topla, düzenli çalışmayı alışkanlığa çevir.</p>
+    <dl>
+      <div class="row"><dt>Soru bankaları</dt><dd>Her ders için ünite ünite kitaplar. Açtığın yerden devam edersin.</dd></div>
+      <div class="row"><dt>Çözümlü sorular</dt><dd>Testi bitirince doğrularını, yanlışlarını ve çözümleri görürsün.</dd></div>
+      <div class="row"><dt>Süreli denemeler</dt><dd>ÖSYM formatında 6 deneme. Denemelerin %40’ı zor sorulardan oluşur. Net hesabı ve bölüm bazlı analiz var.</dd></div>
+      <div class="row"><dt>Yanlışlarım defteri</dt><dd>Yanlış yaptığın sorular tek yerde toplanır, istediğin zaman yeniden çözersin.</dd></div>
+      <div class="row"><dt>Günlük hedef ve seri</dt><dd>Her gün için soru hedefi koy, aralıksız çalıştığın günlerle seri yap.</dd></div>
+      <div class="row"><dt>Rozetler ve yarışma</dt><dd>Başarıların rozet olarak profilinde toplanır. Uygulama içi yarışmalara katıl.</dd></div>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Dersler ve alanlar</h2>
+    <p class="sub">9, 10, 11 ve 12. sınıflar için.</p>
+    <p class="label">Dersler</p>
+    <ul class="chips">
+      <li>Matematik</li><li>Geometri</li><li>Fizik</li><li>Kimya</li><li>Biyoloji</li>
+      <li>Tarih</li><li>Coğrafya</li><li>Felsefe ve din</li><li>Türkçe ve edebiyat</li>
+    </ul>
+    <p class="label">Alanlar</p>
+    <ul class="chips"><li>Sayısal</li><li>Eşit ağırlık</li><li>Sözel</li></ul>
+  </section>
+
+  <section>
+    <h2>Ücretsiz başla, istersen premium’a geç</h2>
+    <div class="premium">
+      <p><strong>Premium</strong> ile süreli denemeler, net analizi, yanlışlarım defteri ve reklamsız kullanım açılır.</p>
+      <p>Premium paketler Google Play üzerinden satın alınır. Web sürümünde satın alma yoktur, uygulama Google Play’de yayına girince buraya bağlantısını ekleyeceğiz.</p>
+    </div>
+  </section>
 </main>
 
-<footer>© <span id="yil">2026</span> Soru Merkezi</footer>
-<script>document.getElementById('yil').textContent = new Date().getFullYear();</script>
+<footer>
+  <div class="wrap">
+    <span>© 2026 Soru Merkezi</span>
+    <nav aria-label="Alt bağlantılar">
+      <a href="gizlilik.html">Gizlilik politikası</a>
+      <a href="kullanim-kosullari.html">Kullanım koşulları</a>
+      <a href="destek.html">Destek</a>
+      <a href="hesap-silme.html">Hesap silme</a>
+    </nav>
+  </div>
+</footer>
 
+<script>
+(function () {
+  var opts = document.querySelectorAll('.opt');
+  var fb = document.getElementById('fb');
+  opts.forEach(function (b) {
+    b.addEventListener('click', function () {
+      opts.forEach(function (o) { o.classList.remove('ok', 'bad'); });
+      if (b.dataset.ok === '1') {
+        b.classList.add('ok');
+        fb.innerHTML = '<strong class="ok">Doğru.</strong> 31’in 1’den ve kendisinden başka böleni yoktur.';
+      } else {
+        b.classList.add('bad');
+        fb.innerHTML = '<strong class="bad">Yanlış.</strong> 21, 27 ve 39 sayıları 3’e tam bölünür, bu yüzden asal değildir.';
+      }
+    });
+  });
+})();
+</script>
 </body>
 </html>
